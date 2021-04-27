@@ -16,51 +16,32 @@ FSJS Project 2 - Data Pagination and Filtering
 
 */
 
-
-
 function showPage(list, page) {
    const itemsperPage = 9
    const startIndex = (page * itemsperPage) - itemsperPage;     
    const endIndex = page * itemsperPage; 
    let studentList = document.querySelector('.student-list'); 
    studentList.innerHTML = ''; 
-      for (let i = 0; i < list.length; i++) 
-         
-        if (list[i] < endIndex && list[i] >= startIndex) {   
-          let  studentItem = `<li class="student-item cf">
-          <div class="student-details">
-            <img class="avatar" src="https://randomuser.me/api/portraits/women/25.jpg" alt="Profile Picture">
-            <h3>Ethel Dean</h3>
-            <span class="email">ethel.dean@example.com</span>
-          </div>
-          <div class="joined-details">
-            <span class="date">Joined 12-15-2005</span>
-          </div>
-        </li>`;
-         
-  
-
-
-
-///Create new elements needed to display the student information
-//Use bracket notation to access the student object at that index
-// and dot notation to access the specific properties of that student object. 
-       
-
-// insert the above elements to the studentList variable
-//insertAdjacentHTML method and beforeend option works well for this.
-
-
-       
-         
-                                             
-   }
- console.log(page);
- console.log(list);
- console.log(studentList);
- console.log(studentItem);
+      
+    for (let i = 0; i < list.length; i++) {
+      if (i >= startIndex && i < endIndex) {
+      const studentItem = document.createElement('li');
+        studentList.appendChild(studentItem);
+        studentItem.innerHTML =  `
+                  <li class="student-item cf">
+                    <div class="student-details">
+                      <img class="avatar" src="${list[i].picture.large}" alt="Profile Picture">
+                      <h3>${list[i].name.first} ${list[i].name.last}</h3>
+                      <span class="email">${list[i].email}</span>
+                    </div>
+                    <div class="joined-details">
+                     <span class="date">Joined ${list[i].registered.date}</span>
+                    </div>
+                  </li> 
+                          `;
+          }
+      } 
 }
-
 showPage(data, 1);
 
 
