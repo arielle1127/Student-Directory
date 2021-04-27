@@ -15,6 +15,10 @@ FSJS Project 2 - Data Pagination and Filtering
            page parameter will be the page number that we want to display.
 
 */
+/*
+Create the `showPage` function
+This function will create and insert/append the elements needed to display a "page" of nine students
+*/
 
 function showPage(list, page) {
    const itemsperPage = 9
@@ -43,24 +47,26 @@ function showPage(list, page) {
       } 
 }
 showPage(data, 1);
-
-
-
-
-
-
-/*
-Create the `showPage` function
-This function will create and insert/append the elements needed to display a "page" of nine students
-*/
-
-
-
 /*
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 
+function addPagination(list) {
+  const numberOfpages = Math.ceil(list.length / 9);
+  const linkList = document.querySelector('.link-list');
+  linkList.innerHTML = '';
 
+  for (let i=1; i<=numberOfpages.length; i++) {
+    const button = document.createElement('button');
+    linkList.appendChild(button);
+      button.innerHTML = `<li>
+                            <button type="button">${numberOfpages[i]}</button>
+                          </li>
+                         `;      
+                             
 
-// Call functions
+  }
+}
+
+addPagination(data);
