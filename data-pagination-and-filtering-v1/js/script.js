@@ -3,22 +3,10 @@ Treehouse Techdegree:
 FSJS Project 2 - Data Pagination and Filtering
 */
 
-/*BIG GOAL: Display a directory of student cards on a page
-         9 students on the page at one time
-         Add buttons that navigate to the next 9 students
 
-1st Goal: Display a page of 9 students
-         Use a function 
-         name this function showPage. 
-         two parameters: list, and page.
-           list parameter will represent the array of student data 
-           page parameter will be the page number that we want to display.
 
-*/
-/*
-Create the `showPage` function
-This function will create and insert/append the elements needed to display a "page" of nine students
-*/
+// showPage function creates and insert the elements needed to display a page of nine students using the array of student objects in data.js
+
 
 function showPage(list, page) {
    const itemsperPage = 9
@@ -44,29 +32,43 @@ function showPage(list, page) {
                   </li> 
                           `;
           }
-      } 
+     } 
 }
 showPage(data, 1);
-/*
-Create the `addPagination` function
-This function will create and insert/append the elements needed for the pagination buttons
-*/
+
+
+//addPagination function creates and insert the elements needed for the pagination buttons
 
 function addPagination(list) {
   const numberOfpages = Math.ceil(list.length / 9);
   const linkList = document.querySelector('.link-list');
   linkList.innerHTML = '';
 
-  for (let i=1; i<=numberOfpages.length; i++) {
-    const button = document.createElement('button');
-    linkList.appendChild(button);
-      button.innerHTML = `<li>
-                            <button type="button">${numberOfpages[i]}</button>
-                          </li>
-                         `;      
-                             
+  for (let i=1; i<=numberOfpages; i++) {
+    const li = document.createElement('li');
+    linkList.appendChild(li);
+    li.innerHTML = `<li>
+                       <button type="button">${[i]}</button>
+                     </li>
+                   `;   
 
+//first button on the list will be set to 'active' class when you open the page
+
+const firstButton = document.querySelector('button');                   
+firstButton.className = 'active';
+
+//if a button is clicked, it will become 'active'
+//any other button will have no active class
+//call showPage function in order to show the correct studentItem(s) when new page is clicked 
+
+linkList.addEventListener('click', (e) => {
+  if (e.target.tagName === 'BUTTON') {
+      const inactiveButton = document.querySelector('.active');
+      inactiveButton.className = '';
+      e.target.className = 'active';
+      showPage(list, e.target.textContent);
+        }
+     })                     
   }
 }
-
 addPagination(data);
